@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 
 class CN(_BatchNorm):
-    def __init__(self, num_features, eps = 1e-5, momentum = 0.1, G=4, affine=True):
+    def __init__(self, num_features, eps = 1e-5, momentum = 0.1, G=7, affine=True):
         super(CN, self).__init__(num_features, eps, momentum, affine=True)
         self.G = G
 

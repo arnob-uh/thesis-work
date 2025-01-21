@@ -1,6 +1,12 @@
+import sys
+import os
+
+# Add the parent directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from train_utils_updated import time_series_epoch_trainer, time_series_epoch_evaluator
 from lob_loader_updated import TimeSeriesDataset
-from RevIN import RevIN
+from normalizations.RevIN import RevIN
 import torch.nn as nn
 from torch.utils.data import DataLoader, random_split
 import os
@@ -9,7 +15,7 @@ import torch
 import matplotlib.pyplot as plt
 
 class MLP(nn.Module):
-    def __init__(self, input_size, window_size, hidden_size=32, output_size=12):
+    def __init__(self, input_size, window_size, hidden_size=32, output_size=7):
         super(MLP, self).__init__()
 
         self.model = nn.Sequential(
@@ -18,7 +24,7 @@ class MLP(nn.Module):
             nn.Linear(hidden_size, output_size)
         )
 
-        self.revin = RevIN(num_features=12)
+        self.revin = RevIN(num_features=7)
 
     def forward(self, x):
         device = next(self.parameters()).device
@@ -29,7 +35,7 @@ class MLP(nn.Module):
 
         x = x.transpose(1, 2)
    
-        x = x.contiguous().view(x.size(0), 12 * 12)
+        x = x.contiguous().view(x.size(0), 7 * 7)
         x = self.model(x)
 
         x = self.revin(x, mode="denorm")
@@ -37,8 +43,8 @@ class MLP(nn.Module):
         return x
 
 def run_experiment(window_size, batch_size=32, lr=0.001, epochs=10):
-    data_dir = 'data'
-    train_file = os.path.join(data_dir, 'data_all.csv')
+    data_dir = '../ETT-small'
+    train_file = os.path.join(data_dir, 'ETTh1.csv')
 
     dataset = TimeSeriesDataset(file_path=train_file, window_size=window_size, train=True)
 
@@ -55,8 +61,8 @@ def run_experiment(window_size, batch_size=32, lr=0.001, epochs=10):
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, drop_last=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, drop_last=False)
 
-    input_size = 12
-    model = MLP(input_size=input_size, window_size=window_size, hidden_size=32, output_size=12)
+    input_size = 7
+    model = MLP(input_size=input_size, window_size=window_size, hidden_size=32, output_size=7)
     model.cuda()
 
     for epoch in range(epochs):
@@ -75,4 +81,4 @@ def run_experiment(window_size, batch_size=32, lr=0.001, epochs=10):
     test_loss_mse, test_loss_mae, test_r2 = time_series_epoch_evaluator(model, test_loader)
     print(f"Test MSE: {test_loss_mse:.4f}, MAE: {test_loss_mae:.4f}, R²: {test_r2:.4f}")
 
-run_experiment(window_size=12, batch_size=32, lr=0.1, epochs=10)
+run_experiment(window_size=7, batch_size=32, lr=0.1, epochs=10)

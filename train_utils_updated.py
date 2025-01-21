@@ -24,7 +24,12 @@ def time_series_epoch_trainer(model, train_loader, lr=0.0001, optimizer=optim.Ad
         model_optimizer.zero_grad()
 
         predictions = model(inputs)
+
+        #RevIN
         targets = targets.unsqueeze(1).repeat(1, predictions.size(1), 1)
+        
+        #Dain, CN
+        #targets = targets.view_as(predictions)    
 
         loss_mse = torch.nn.functional.mse_loss(predictions, targets)
         loss_mae = torch.nn.functional.l1_loss(predictions, targets)
@@ -59,7 +64,12 @@ def time_series_epoch_evaluator(model, val_loader):
             targets = targets.to(device)
 
             predictions = model(inputs)
+
+            #RevIN
             targets = targets.unsqueeze(1).repeat(1, predictions.size(1), 1)
+
+            #Dain, CN
+            # targets = targets.view_as(predictions)
 
             loss_mse = torch.nn.functional.mse_loss(predictions, targets)
             loss_mae = torch.nn.functional.l1_loss(predictions, targets)

@@ -1,6 +1,11 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from train_utils_updated import time_series_epoch_trainer, time_series_epoch_evaluator
 from lob_loader_updated import TimeSeriesDataset
-from cn import CN
+from dain import DAIN_Layer
 import torch.nn as nn
 from torch.utils.data import DataLoader, random_split
 import os
@@ -9,7 +14,7 @@ import torch
 import matplotlib.pyplot as plt
 
 class MLP(nn.Module):
-    def __init__(self, input_size, window_size, hidden_size=64, output_size=12, mode='adaptive_avg', mean_lr=0.00001, gate_lr=0.001, scale_lr=0.0001):
+    def __init__(self, input_size, window_size, hidden_size=32, output_size=7, mode='adaptive_avg', mean_lr=0.00001, gate_lr=0.001, scale_lr=0.0001):
         super(MLP, self).__init__()
 
         self.model = nn.Sequential(
@@ -18,19 +23,19 @@ class MLP(nn.Module):
             nn.Linear(hidden_size, output_size)
         )
 
-        self.cn = CN(num_features=12)
+        self.dain = DAIN_Layer(mode=mode, mean_lr=mean_lr, gate_lr=gate_lr, scale_lr=scale_lr, input_dim=7)
 
     def forward(self, x):
         x = x.transpose(1, 2)
-        x = self.cn(x)
+        x = self.dain(x)
         x = x.transpose(1, 2)
-        x = x.contiguous().view(x.size(0), 12 * 10)
+        x = x.contiguous().view(x.size(0), 7 * 10)
         x = self.model(x)
         return x
 
 def run_experiment(window_size, batch_size=32, lr=0.001, epochs=10):
-    data_dir = 'data'
-    train_file = os.path.join(data_dir, 'data_all.csv')
+    data_dir = '../ETT-small'
+    train_file = os.path.join(data_dir, 'ETTh1.csv')
 
     dataset = TimeSeriesDataset(file_path=train_file, window_size=window_size, train=True)
 
@@ -47,8 +52,8 @@ def run_experiment(window_size, batch_size=32, lr=0.001, epochs=10):
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, drop_last=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, drop_last=False)
 
-    input_size = 12
-    model = MLP(input_size=input_size, window_size=window_size, hidden_size=64, output_size=12)
+    input_size = 7
+    model = MLP(input_size=input_size, window_size=window_size, hidden_size=32, output_size=7)
     model.cuda()
 
     for epoch in range(epochs):

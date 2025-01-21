@@ -3,7 +3,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from train_utils_new import time_series_epoch_trainer, time_series_epoch_evaluator
 from data_provider.data_factory import data_provider
-from dain import DAIN_Layer
+from normalizations.dain import DAIN_Layer
 
 class MLP(nn.Module):
     def __init__(self, input_size, window_size, hidden_size=32, output_size=120, mode='adaptive_avg', mean_lr=0.00001, gate_lr=0.001, scale_lr=0.0001):
