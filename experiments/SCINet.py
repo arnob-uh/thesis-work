@@ -1,16 +1,7 @@
 import fire
-import torch
 from experiments.experiment import NormExperiment
 from models.SCINet import SCINet
-
-from torch.optim import Optimizer, Adam
-
-import wandb
-
-from dataclasses import dataclass, asdict, field
-
-from nn.metric import R2, Corr
-
+from dataclasses import dataclass
 
 @dataclass
 class SCINetExperiment(NormExperiment):
@@ -30,8 +21,6 @@ class SCINetExperiment(NormExperiment):
     modified : bool = True
     RIN : bool = False
 
-    
-    
     def _init_f_model(self):
         self.f_model = SCINet(
             output_len=self.pred_len, 
@@ -53,25 +42,12 @@ class SCINetExperiment(NormExperiment):
         )
         self.f_model = self.f_model.to(self.device)
 
-    def _process_batch(self, batch_x, batch_y, batch_x_date_enc, batch_y_date_enc):
-        # inputs:
-            # batch_x:  (B, T, N)
-            # batch_y:  (B, Steps,T)
-            # batch_x_date_enc:  (B, T, N)
-            # batch_y_date_enc:  (B, T, Steps)
-            
-        # outputs:
-            # pred: (B, O, N)
-            # label:  (B,O,N)
-        
-        batch_x , dec_inp = self.model.normalize(batch_x) # (B, T, N)   # (B,L,N)
+    def _process_batch(self, batch_x, batch_y, batch_x_date_enc, batch_y_date_enc):       
+        batch_x , dec_inp = self.model.normalize(batch_x)
         
         pred = self.model.fm(batch_x)
         pred = self.model.denormalize(pred)
-        return pred, batch_y # (B, O, N), (B, O, N)
-
-        # pred = self.model(batch_x, batch_x_date_enc, dec_inp, dec_inp_date_enc) # (B, O, N)
-        # return pred
+        return pred, batch_y
 
 def cli():
     fire.Fire(SCINetExperiment)
@@ -80,7 +56,7 @@ def main():
     exp = SCINetExperiment(
         dataset_type="ExchangeRate",
         data_path="./data",
-        norm_type='RevIN', # No  DishTS
+        norm_type='RevIN',
         optm_type="Adam",
         batch_size=128,
         device="cuda:1",
@@ -89,9 +65,7 @@ def main():
         horizon=1,
         epochs=100,
     )
-
     exp.run()
-
 
 if __name__ == "__main__":
     # main()

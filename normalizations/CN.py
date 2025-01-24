@@ -1,8 +1,5 @@
 from torch.nn.modules.batchnorm import _BatchNorm
-from torch.nn.parameter import Parameter
 from torch.nn import functional as F
-import torch
-import torch.nn as nn
 
 class CN(_BatchNorm):
     def __init__(self, num_features=96, eps = 1e-5, momentum = 0.1, G=2, affine=True):

@@ -1,16 +1,10 @@
-from typing import Sequence, Tuple, Type
-
-import torch
 from data.scaler import Scaler
 from datasets.dataset import (
-    Dataset,
     TimeSeriesDataset,
     TimeseriesSubset,
 )
-from torch.utils.data import Dataset, DataLoader, RandomSampler, Subset
-
+from torch.utils.data import DataLoader
 from datasets.wrapper import MultiStepTimeFeatureSet
-
 
 class ChunkSequenceTimefeatureDataLoader:
     def __init__(
@@ -31,7 +25,6 @@ class ChunkSequenceTimefeatureDataLoader:
         uniform_eval=True,
     ) -> None:
         """
-
         Split the dataset sequentially, and then randomly sample from each subset.
 
         :param dataset: the input dataset, must be of type datasets.Dataset
@@ -71,12 +64,6 @@ class ChunkSequenceTimefeatureDataLoader:
         self._load_dataloader()
 
     def _load_dataset(self):
-        """
-        Return the splitted training, testing and validation dataloders
-
-        :return: a tuple of train_dataloader, test_dataloader and val_dataloader
-        """
-        # fixed suquence dataset
         indices = range(0, len(self.dataset))
 
         train_size = int(self.train_ratio * len(self.dataset))
@@ -85,7 +72,7 @@ class ChunkSequenceTimefeatureDataLoader:
         train_subset = TimeseriesSubset(self.dataset, indices[0:train_size])
 
         if self.uniform_eval:
-            val_subset = TimeseriesSubset( # self.window + self.horizon - 1
+            val_subset = TimeseriesSubset(
                 self.dataset, indices[train_size - self.window - self.horizon + 1: (val_size + train_size)]
             )
         else:
@@ -139,7 +126,6 @@ class ChunkSequenceTimefeatureDataLoader:
         self.train_size = len(self.train_dataset)
         self.val_size = len(self.val_dataset)
         self.test_size = len(self.test_dataset)
-        # RandomSampler 与 Dataloader generator都需要设置，否则还是无法复现
         self.train_loader = DataLoader(
             self.train_dataset,
             batch_size=self.batch_size,
@@ -160,8 +146,6 @@ class ChunkSequenceTimefeatureDataLoader:
             shuffle=False,
             num_workers=self.num_worker,
         )
-
-
 
 class ETTHLoader:
     def __init__(
@@ -178,7 +162,6 @@ class ETTHLoader:
         num_worker: int = 3,
     ) -> None:
 
-
         self.batch_size = batch_size
         self.num_worker = num_worker
         self.dataset = dataset
@@ -197,29 +180,13 @@ class ETTHLoader:
         self._load_dataset()
         self._load_dataloader()
 
-    def _load_dataset(self):
-        """
-        Return the splitted training, testing and validation dataloders
-
-        :return: a tuple of train_dataloader, test_dataloader and val_dataloader
-        """
-        # fixed suquence dataset
-        
+    def _load_dataset(self):        
         border1s = [0, 12*30*24 - self.window + self.horizon - 1, 12*30*24+4*30*24 - self.window + self.horizon - 1]
         border2s = [12*30*24, 12*30*24+4*30*24, 12*30*24+8*30*24]
-        
-        # indices = border2s[-1]
-        # train_size = len(train_indices)
-        # val_size =   len(val_indices)
-        # test_size = len(test_indices)
         
         train_indices = list(range(border1s[0], border2s[0]))
         val_indices = list(range(border1s[1], border2s[1]))
         test_indices = list(range(border1s[2], border2s[2]))
-        
-        train_size = len(train_indices)
-        val_size = len(val_indices)
-        test_size = len(test_indices)
         
         train_subset = TimeseriesSubset(self.dataset, train_indices)
         val_subset = TimeseriesSubset(self.dataset, val_indices)
@@ -282,7 +249,6 @@ class ETTHLoader:
             shuffle=False,
             num_workers=self.num_worker,
         )
-
 
 class ETTMLoader:
     def __init__(
@@ -299,7 +265,6 @@ class ETTMLoader:
         num_worker: int = 3,
     ) -> None:
 
-
         self.batch_size = batch_size
         self.num_worker = num_worker
         self.dataset = dataset
@@ -319,27 +284,12 @@ class ETTMLoader:
         self._load_dataloader()
 
     def _load_dataset(self):
-        """
-        Return the splitted training, testing and validation dataloders
-
-        :return: a tuple of train_dataloader, test_dataloader and val_dataloader
-        """
-        # fixed suquence dataset
         border1s = [0, 12*30*24*4 - self.window + self.horizon - 1, 12*30*24*4+4*30*24*4 - self.window + self.horizon - 1]
         border2s = [12*30*24*4, 12*30*24*4+4*30*24*4, 12*30*24*4+8*30*24*4]
-        
-        # indices = border2s[-1]
-        # train_size = len(train_indices)
-        # val_size =   len(val_indices)
-        # test_size = len(test_indices)
         
         train_indices = list(range(border1s[0], border2s[0]))
         val_indices = list(range(border1s[1], border2s[1]))
         test_indices = list(range(border1s[2], border2s[2]))
-        
-        train_size = len(train_indices)
-        val_size = len(val_indices)
-        test_size = len(test_indices)
         
         train_subset = TimeseriesSubset(self.dataset, train_indices)
         val_subset = TimeseriesSubset(self.dataset, val_indices)
@@ -402,4 +352,3 @@ class ETTMLoader:
             shuffle=False,
             num_workers=self.num_worker,
         )
-

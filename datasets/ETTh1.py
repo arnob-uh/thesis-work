@@ -1,14 +1,8 @@
 import os
-import resource
 from.dataset import Dataset, Freq, TimeSeriesDataset
-from typing import Any, Callable, List, Optional
-import torch
-from torchvision.datasets.utils import download_url, download_and_extract_archive, check_integrity
+from torchvision.datasets.utils import download_url
 import pandas as pd
 import numpy as np
-import torch.utils.data
-
-
 
 class ETTh1(TimeSeriesDataset):
     name:str= 'ETTh1'
@@ -31,6 +25,3 @@ class ETTh1(TimeSeriesDataset):
         self.dates = pd.DataFrame({'date':self.df.date})
         self.data = self.df.iloc[:, 1:].to_numpy()
         return self.data
-    
-    
-    

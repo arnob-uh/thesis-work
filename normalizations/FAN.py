@@ -1,10 +1,7 @@
-import time
 import torch
 import torch.nn as nn
 
 def main_freq_part(x, k, rfft=True):
-    # freq normalization
-    # start = time.time()
     if rfft:
         xf = torch.fft.rfft(x, dim=1)
     else:
@@ -22,20 +19,10 @@ def main_freq_part(x, k, rfft=True):
     else:
         x_filtered = torch.fft.ifft(xf_filtered, dim=1).real.float()
 
-    
     norm_input = x - x_filtered
-    # print(f"decompose take:{ time.time() - start} s")
     return norm_input, x_filtered
 
-
-
 class FAN(nn.Module):
-    """FAN first substract bottom k frequecy component from the original series
-      
-
-    Args:
-        nn (_type_): _description_
-    """
     def __init__(self,  seq_len, pred_len, enc_in, freq_topk = 20, rfft=True, **kwargs):
         super().__init__()
         self.seq_len = seq_len
@@ -53,29 +40,21 @@ class FAN(nn.Module):
         self.model_freq = MLPfreq(seq_len=self.seq_len, pred_len=self.pred_len, enc_in=self.enc_in)
         
     def loss(self, true):
-        # freq normalization
         B , O, N= true.shape
         residual, pred_main  = main_freq_part(true, self.freq_topk, self.rfft)
         
-
         lf = nn.functional.mse_loss
         return  lf(self.pred_main_freq_signal, pred_main) + lf(residual, self.pred_residual) 
         
-        
     def normalize(self, input):
-        # (B, T, N)
         bs, len, dim = input.shape
         norm_input, x_filtered = main_freq_part(input, self.freq_topk, self.rfft)
         self.pred_main_freq_signal = self.model_freq(x_filtered.transpose(1,2), input.transpose(1,2)).transpose(1,2)
         
         return norm_input.reshape(bs, len, dim)
 
-
     def denormalize(self, input_norm):
-        # input:  (B, O, N)
-        # station_pred: outputs of normalize
         bs, len, dim = input_norm.shape
-        # freq denormalize
         self.pred_residual = input_norm
         output = self.pred_residual + self.pred_main_freq_signal
         
@@ -86,7 +65,6 @@ class FAN(nn.Module):
             return self.normalize(batch_x)
         elif mode =='d':
             return self.denormalize(batch_x)
-
 
 class MLPfreq(nn.Module):
     def __init__(self, seq_len, pred_len, enc_in):
@@ -106,10 +84,6 @@ class MLPfreq(nn.Module):
             nn.Linear(128, pred_len)
         )
 
-
     def forward(self, main_freq, x):
         inp = torch.concat([self.model_freq(main_freq), x], dim=-1)
         return self.model_all(inp)
-        
-        
-        

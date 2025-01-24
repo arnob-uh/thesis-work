@@ -1,0 +1,160 @@
+[2025-01-24 01:22:45] - run : 0 in seed: 3
+[2025-01-24 01:22:45] - +---------------------------------------------------------------------------------------------------+------------+
+|                                              Modules                                              | Parameters |
++---------------------------------------------------------------------------------------------------+------------+
+|                  fm.blocks1.SCINet_Tree.workingblock.interact.level.phi.1.weight                  |    245     |
+|                   fm.blocks1.SCINet_Tree.workingblock.interact.level.phi.1.bias                   |     7      |
+|                  fm.blocks1.SCINet_Tree.workingblock.interact.level.phi.4.weight                  |    147     |
+|                   fm.blocks1.SCINet_Tree.workingblock.interact.level.phi.4.bias                   |     7      |
+|                  fm.blocks1.SCINet_Tree.workingblock.interact.level.psi.1.weight                  |    245     |
+|                   fm.blocks1.SCINet_Tree.workingblock.interact.level.psi.1.bias                   |     7      |
+|                  fm.blocks1.SCINet_Tree.workingblock.interact.level.psi.4.weight                  |    147     |
+|                   fm.blocks1.SCINet_Tree.workingblock.interact.level.psi.4.bias                   |     7      |
+|                   fm.blocks1.SCINet_Tree.workingblock.interact.level.P.1.weight                   |    245     |
+|                    fm.blocks1.SCINet_Tree.workingblock.interact.level.P.1.bias                    |     7      |
+|                   fm.blocks1.SCINet_Tree.workingblock.interact.level.P.4.weight                   |    147     |
+|                    fm.blocks1.SCINet_Tree.workingblock.interact.level.P.4.bias                    |     7      |
+|                   fm.blocks1.SCINet_Tree.workingblock.interact.level.U.1.weight                   |    245     |
+|                    fm.blocks1.SCINet_Tree.workingblock.interact.level.U.1.bias                    |     7      |
+|                   fm.blocks1.SCINet_Tree.workingblock.interact.level.U.4.weight                   |    147     |
+|                    fm.blocks1.SCINet_Tree.workingblock.interact.level.U.4.bias                    |     7      |
+|          fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.phi.1.weight          |    245     |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.phi.1.bias           |     7      |
+|          fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.phi.4.weight          |    147     |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.phi.4.bias           |     7      |
+|          fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.psi.1.weight          |    245     |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.psi.1.bias           |     7      |
+|          fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.psi.4.weight          |    147     |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.psi.4.bias           |     7      |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.P.1.weight           |    245     |
+|            fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.P.1.bias            |     7      |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.P.4.weight           |    147     |
+|            fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.P.4.bias            |     7      |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.U.1.weight           |    245     |
+|            fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.U.1.bias            |     7      |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.U.4.weight           |    147     |
+|            fm.blocks1.SCINet_Tree.SCINet_Tree_odd.workingblock.interact.level.U.4.bias            |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.phi.1.weight  |    245     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.phi.1.bias   |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.phi.4.weight  |    147     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.phi.4.bias   |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.psi.1.weight  |    245     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.psi.1.bias   |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.psi.4.weight  |    147     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.psi.4.bias   |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.P.1.weight   |    245     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.P.1.bias    |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.P.4.weight   |    147     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.P.4.bias    |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.U.1.weight   |    245     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.U.1.bias    |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.U.4.weight   |    147     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_odd.workingblock.interact.level.U.4.bias    |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.phi.1.weight |    245     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.phi.1.bias  |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.phi.4.weight |    147     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.phi.4.bias  |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.psi.1.weight |    245     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.psi.1.bias  |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.psi.4.weight |    147     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.psi.4.bias  |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.P.1.weight  |    245     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.P.1.bias   |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.P.4.weight  |    147     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.P.4.bias   |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.U.1.weight  |    245     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.U.1.bias   |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.U.4.weight  |    147     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_odd.SCINet_Tree_even.workingblock.interact.level.U.4.bias   |     7      |
+|          fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.phi.1.weight         |    245     |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.phi.1.bias          |     7      |
+|          fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.phi.4.weight         |    147     |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.phi.4.bias          |     7      |
+|          fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.psi.1.weight         |    245     |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.psi.1.bias          |     7      |
+|          fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.psi.4.weight         |    147     |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.psi.4.bias          |     7      |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.P.1.weight          |    245     |
+|            fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.P.1.bias           |     7      |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.P.4.weight          |    147     |
+|            fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.P.4.bias           |     7      |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.U.1.weight          |    245     |
+|            fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.U.1.bias           |     7      |
+|           fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.U.4.weight          |    147     |
+|            fm.blocks1.SCINet_Tree.SCINet_Tree_even.workingblock.interact.level.U.4.bias           |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.phi.1.weight |    245     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.phi.1.bias  |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.phi.4.weight |    147     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.phi.4.bias  |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.psi.1.weight |    245     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.psi.1.bias  |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.psi.4.weight |    147     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.psi.4.bias  |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.P.1.weight  |    245     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.P.1.bias   |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.P.4.weight  |    147     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.P.4.bias   |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.U.1.weight  |    245     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.U.1.bias   |     7      |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.U.4.weight  |    147     |
+|    fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_odd.workingblock.interact.level.U.4.bias   |     7      |
+| fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.phi.1.weight |    245     |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.phi.1.bias  |     7      |
+| fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.phi.4.weight |    147     |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.phi.4.bias  |     7      |
+| fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.psi.1.weight |    245     |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.psi.1.bias  |     7      |
+| fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.psi.4.weight |    147     |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.psi.4.bias  |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.P.1.weight  |    245     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.P.1.bias   |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.P.4.weight  |    147     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.P.4.bias   |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.U.1.weight  |    245     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.U.1.bias   |     7      |
+|  fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.U.4.weight  |    147     |
+|   fm.blocks1.SCINet_Tree.SCINet_Tree_even.SCINet_Tree_even.workingblock.interact.level.U.4.bias   |     7      |
+|                                       fm.projection1.weight                                       |    9216    |
+|                                              nm.gamma                                             |     7      |
+|                                              nm.beta                                              |     7      |
++---------------------------------------------------------------------------------------------------+------------+
+[2025-01-24 01:22:45] - Total Trainable Params: 20598
+[2025-01-24 01:22:45] - model parameters: 20598
+[2025-01-24 01:23:01] - Epoch: 1 cost time: 15.920920372009277
+[2025-01-24 01:23:01] - Traininng loss : 0.6178493292264219
+[2025-01-24 01:23:03] - vali_results: {'mae': 0.6080164313316345, 'mape': 7.280190944671631, 'mse': 0.800726592540741, 'rmse': 0.8948332667350769}
+[2025-01-24 01:23:20] - Epoch: 2 cost time: 35.05111122131348
+[2025-01-24 01:23:20] - Traininng loss : 0.41274326893518554
+[2025-01-24 01:23:22] - vali_results: {'mae': 0.5766737461090088, 'mape': 6.787479877471924, 'mse': 0.7429325580596924, 'rmse': 0.8619353771209717}
+[2025-01-24 01:23:40] - Epoch: 3 cost time: 54.35835289955139
+[2025-01-24 01:23:40] - Traininng loss : 0.3846355051364539
+[2025-01-24 01:23:41] - vali_results: {'mae': 0.5642861723899841, 'mape': 6.603822708129883, 'mse': 0.721858024597168, 'rmse': 0.8496223092079163}
+[2025-01-24 01:23:58] - Epoch: 4 cost time: 72.58214282989502
+[2025-01-24 01:23:58] - Traininng loss : 0.37123319056798826
+[2025-01-24 01:24:00] - vali_results: {'mae': 0.5589699149131775, 'mape': 6.472639560699463, 'mse': 0.71351557970047, 'rmse': 0.8446984887123108}
+[2025-01-24 01:24:16] - Epoch: 5 cost time: 90.25776481628418
+[2025-01-24 01:24:16] - Traininng loss : 0.36278812013707074
+[2025-01-24 01:24:17] - vali_results: {'mae': 0.556007981300354, 'mape': 6.363615036010742, 'mse': 0.709456741809845, 'rmse': 0.8422925472259521}
+[2025-01-24 01:24:35] - Epoch: 6 cost time: 109.1438615322113
+[2025-01-24 01:24:35] - Traininng loss : 0.35853759230307813
+[2025-01-24 01:24:36] - vali_results: {'mae': 0.5524958372116089, 'mape': 6.298428535461426, 'mse': 0.7036016583442688, 'rmse': 0.8388096690177917}
+[2025-01-24 01:24:52] - Epoch: 7 cost time: 126.66338086128235
+[2025-01-24 01:24:52] - Traininng loss : 0.3524843227188542
+[2025-01-24 01:24:54] - vali_results: {'mae': 0.5485861897468567, 'mape': 6.235953330993652, 'mse': 0.6962447166442871, 'rmse': 0.8344128131866455}
+[2025-01-24 01:25:10] - Epoch: 8 cost time: 144.8013985157013
+[2025-01-24 01:25:10] - Traininng loss : 0.3471480321209386
+[2025-01-24 01:25:12] - vali_results: {'mae': 0.5494406223297119, 'mape': 6.2161712646484375, 'mse': 0.6977551579475403, 'rmse': 0.8353173732757568}
+[2025-01-24 01:25:28] - Epoch: 9 cost time: 162.2279498577118
+[2025-01-24 01:25:28] - Traininng loss : 0.3412659794092178
+[2025-01-24 01:25:29] - vali_results: {'mae': 0.5495834946632385, 'mape': 6.239336967468262, 'mse': 0.6977391839027405, 'rmse': 0.8353078365325928}
+[2025-01-24 01:25:46] - Epoch: 10 cost time: 180.39417004585266
+[2025-01-24 01:25:46] - Traininng loss : 0.33628262129594694
+[2025-01-24 01:25:47] - vali_results: {'mae': 0.5513946413993835, 'mape': 6.285556316375732, 'mse': 0.7001751661300659, 'rmse': 0.8367646932601929}
+[2025-01-24 01:26:04] - Epoch: 11 cost time: 198.99606704711914
+[2025-01-24 01:26:04] - Traininng loss : 0.3311520038910632
+[2025-01-24 01:26:06] - vali_results: {'mae': 0.5514900088310242, 'mape': 6.339991092681885, 'mse': 0.6982954144477844, 'rmse': 0.8356407284736633}
+[2025-01-24 01:26:22] - Epoch: 12 cost time: 216.27000784873962
+[2025-01-24 01:26:22] - Traininng loss : 0.3262508752211085
+[2025-01-24 01:26:24] - vali_results: {'mae': 0.553648054599762, 'mape': 6.419750213623047, 'mse': 0.6990050673484802, 'rmse': 0.8360652327537537}
+[2025-01-24 01:26:24] - loss no decreased for 5 epochs,  early stopping ....
+[2025-01-24 01:26:25] - test_results: {'mae': 0.4016077518463135, 'mape': 9.768445014953613, 'mse': 0.39404892921447754, 'rmse': 0.6277331709861755}

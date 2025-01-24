@@ -1,4 +1,3 @@
-
 import math
 import torch.nn.functional as F
 from torch.autograd import Variable
@@ -21,7 +20,6 @@ class Splitting(nn.Module):
         '''Returns the odd and even part'''
         return (self.even(x), self.odd(x))
 
-
 class Interactor(nn.Module):
     def __init__(self, in_planes, splitting=True,
                  kernel = 5, dropout=0.5, groups = 1, hidden_size = 1, INN = True):
@@ -33,11 +31,11 @@ class Interactor(nn.Module):
         self.hidden_size = hidden_size
         self.groups = groups
         if self.kernel_size % 2 == 0:
-            pad_l = self.dilation * (self.kernel_size - 2) // 2 + 1 #by default: stride==1 
-            pad_r = self.dilation * (self.kernel_size) // 2 + 1 #by default: stride==1 
+            pad_l = self.dilation * (self.kernel_size - 2) // 2 + 1
+            pad_r = self.dilation * (self.kernel_size) // 2 + 1
 
         else:
-            pad_l = self.dilation * (self.kernel_size - 1) // 2 + 1 # we fix the kernel size of the second layer as 3.
+            pad_l = self.dilation * (self.kernel_size - 1) // 2 + 1
             pad_r = self.dilation * (self.kernel_size - 1) // 2 + 1
         self.splitting = splitting
         self.split = Splitting()
@@ -124,7 +122,6 @@ class Interactor(nn.Module):
 
             return (c, d)
 
-
 class InteractorLevel(nn.Module):
     def __init__(self, in_planes, kernel, dropout, groups , hidden_size, INN):
         super(InteractorLevel, self).__init__()
@@ -142,13 +139,12 @@ class LevelSCINet(nn.Module):
 
     def forward(self, x):
         (x_even_update, x_odd_update) = self.interact(x)
-        return x_even_update.permute(0, 2, 1), x_odd_update.permute(0, 2, 1) #even: B, T, D odd: B, T, D
+        return x_even_update.permute(0, 2, 1), x_odd_update.permute(0, 2, 1)
 
 class SCINet_Tree(nn.Module):
     def __init__(self, in_planes, current_level, kernel_size, dropout, groups, hidden_size, INN):
         super().__init__()
         self.current_level = current_level
-
 
         self.workingblock = LevelSCINet(
             in_planes = in_planes,
@@ -157,7 +153,6 @@ class SCINet_Tree(nn.Module):
             groups= groups,
             hidden_size = hidden_size,
             INN = INN)
-
 
         if current_level!=0:
             self.SCINet_Tree_odd=SCINet_Tree(in_planes, current_level-1, kernel_size, dropout, groups, hidden_size, INN)
@@ -179,7 +174,6 @@ class SCINet_Tree(nn.Module):
         
     def forward(self, x):
         x_even_update, x_odd_update= self.workingblock(x)
-        # We recursively reordered these sub-series. You can run the ./utils/recursive_demo.py to emulate this procedure. 
         if self.current_level ==0:
             return self.zip_up_the_pants(x_even_update, x_odd_update)
         else:
@@ -234,7 +228,7 @@ class SCINet(nn.Module):
             hidden_size = self.hidden_size,
             INN =  modified)
 
-        if num_stacks == 2: # we only implement two stacks at most.
+        if num_stacks == 2:
             self.blocks2 = EncoderTree(
                 in_planes=self.input_dim,
             num_levels = self.num_levels,
@@ -269,7 +263,7 @@ class SCINet(nn.Module):
                     div_projection.append(nn.Linear(lens, self.div_len))
                 self.div_projection.append(div_projection)
 
-        if self.single_step_output_One: # only output the N_th timestep.
+        if self.single_step_output_One:
             if self.stacks == 2:
                 if self.concat_len:
                     self.projection2 = nn.Conv1d(self.concat_len + self.output_len, 1,
@@ -277,7 +271,7 @@ class SCINet(nn.Module):
                 else:
                     self.projection2 = nn.Conv1d(self.input_len + self.output_len, 1,
                                                 kernel_size = 1, bias = False)
-        else: # output the N timesteps.
+        else:
             if self.stacks == 2:
                 if self.concat_len:
                     self.projection2 = nn.Conv1d(self.concat_len + self.output_len, self.output_len,
@@ -286,7 +280,6 @@ class SCINet(nn.Module):
                     self.projection2 = nn.Conv1d(self.input_len + self.output_len, self.output_len,
                                                 kernel_size = 1, bias = False)
 
-        # For positional encoding
         self.pe_hidden_size = input_dim
         if self.pe_hidden_size % 2 == 1:
             self.pe_hidden_size += 1
@@ -304,25 +297,24 @@ class SCINet(nn.Module):
             -log_timescale_increment)
         self.register_buffer('inv_timescales', inv_timescales)
 
-        ### RIN Parameters ###
         if self.RIN:
             self.affine_weight = nn.Parameter(torch.ones(1, 1, input_dim))
             self.affine_bias = nn.Parameter(torch.zeros(1, 1, input_dim))
     
     def get_position_encoding(self, x):
         max_length = x.size()[1]
-        position = torch.arange(max_length, dtype=torch.float32, device=x.device)  # tensor([0., 1., 2., 3., 4.], device='cuda:0')
-        temp1 = position.unsqueeze(1)  # 5 1
-        temp2 = self.inv_timescales.unsqueeze(0)  # 1 256
-        scaled_time = position.unsqueeze(1) * self.inv_timescales.unsqueeze(0)  # 5 256
-        signal = torch.cat([torch.sin(scaled_time), torch.cos(scaled_time)], dim=1)  #[T, C]
+        position = torch.arange(max_length, dtype=torch.float32, device=x.device)
+        temp1 = position.unsqueeze(1)
+        temp2 = self.inv_timescales.unsqueeze(0)
+        scaled_time = position.unsqueeze(1) * self.inv_timescales.unsqueeze(0)
+        signal = torch.cat([torch.sin(scaled_time), torch.cos(scaled_time)], dim=1)
         signal = F.pad(signal, (0, 0, 0, self.pe_hidden_size % 2))
         signal = signal.view(1, max_length, self.pe_hidden_size)
     
         return signal
 
     def forward(self, x):
-        assert self.input_len % (np.power(2, self.num_levels)) == 0 # evenly divided the input length into two parts. (e.g., 32 -> 16 -> 8 -> 4 for 3 levels)
+        assert self.input_len % (np.power(2, self.num_levels)) == 0
         if self.pe:
             pe = self.get_position_encoding(x)
             if pe.shape[2] > x.shape[2]:
@@ -330,20 +322,14 @@ class SCINet(nn.Module):
             else:
                 x += self.get_position_encoding(x)
 
-        ### activated when RIN flag is set ###
         if self.RIN:
             print('/// RIN ACTIVATED ///\r',end='')
             means = x.mean(1, keepdim=True).detach()
-            #mean
             x = x - means
-            #var
             stdev = torch.sqrt(torch.var(x, dim=1, keepdim=True, unbiased=False) + 1e-5)
             x /= stdev
-            # affine
-            # print(x.shape,self.affine_weight.shape,self.affine_bias.shape)
             x = x * self.affine_weight + self.affine_bias
 
-        # the first stack
         res1 = x
         x = self.blocks1(x)
         x += res1
@@ -361,7 +347,6 @@ class SCINet(nn.Module):
             x = x.permute(0,2,1)
 
         if self.stacks == 1:
-            ### reverse RIN ###
             if self.RIN:
                 x = x - self.affine_bias
                 x = x / (self.affine_weight + 1e-10)
@@ -377,13 +362,11 @@ class SCINet(nn.Module):
             else:
                 x = torch.cat((res1, x), dim=1)
 
-            # the second stack
             res2 = x
             x = self.blocks2(x)
             x += res2
             x = self.projection2(x)
             
-            ### Reverse RIN ###
             if self.RIN:
                 MidOutPut = MidOutPut - self.affine_bias
                 MidOutPut = MidOutPut / (self.affine_weight + 1e-10)
@@ -397,7 +380,6 @@ class SCINet(nn.Module):
                 x = x + means
 
             return x, MidOutPut
-
 
 def get_variable(x):
     x = Variable(x)
@@ -428,3 +410,4 @@ if __name__ == '__main__':
     x = torch.randn(32, 96, 9).cuda()
     y = model(x)
     print(y.shape)
+    

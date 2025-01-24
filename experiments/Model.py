@@ -1,8 +1,5 @@
-import torch
 import torch.nn as nn
-
 from normalizations import *
-
 
 class Model(nn.Module):
     def __init__(self, f_model_type, forecast_model: nn.Module, norm_model: nn.Module):
@@ -11,11 +8,7 @@ class Model(nn.Module):
         self.fm = forecast_model
         self.nm = norm_model
 
-    
     def normalize(self, batch_x, batch_x_enc=None, dec_inp=None,dec_inp_enc=None):
-        # normalize
-        # input: B T N
-        # output: B, T, N
         dec_inp = dec_inp
         if isinstance(self.nm, RevIN):
             batch_x, dec_inp = self.nm(batch_x, 'n', dec_inp)  if 'former' in self.f_model_type  else  self.nm(batch_x)
@@ -27,16 +20,16 @@ class Model(nn.Module):
         return batch_x, dec_inp
             
     def denormalize(self, pred):
-        # denormalize
         if isinstance(self.nm, RevIN):
             pred = self.nm(pred, 'd') 
         elif  isinstance(self.nm, SAN):
             pred = self.nm(pred, 'd', self.pred_stats)
+        elif isinstance(self.nm, FAN):
+            pred = self.nm(pred, 'd') 
         else:
             pred = self.nm(pred)
         
         return pred
-    
     
     def forward(self, batch_x, batch_x_enc=None, dec_inp=None,dec_inp_enc=None):
         print("forwardprint")
@@ -68,4 +61,3 @@ class Model(nn.Module):
         #     pass
 
         return pred
-

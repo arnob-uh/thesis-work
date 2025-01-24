@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 
-
 class SAN(nn.Module):
     def __init__(self, seq_len, pred_len, period_len, enc_in,station_type='adaptive'):
         super().__init__()
@@ -10,7 +9,6 @@ class SAN(nn.Module):
         self.period_len = period_len
         self.channels = enc_in 
         self.enc_in = enc_in 
-        # configs.enc_in if configs.features == 'M' else 1
         self.station_type = station_type
 
         self.seq_len_new = int(self.seq_len / self.period_len)
@@ -27,7 +25,6 @@ class SAN(nn.Module):
         self.model_std = MLP( seq_len, pred_len, enc_in, self.period_len, mode='std').float()
 
     def normalize(self, input):
-        # (B, T, N)
         if self.station_type == 'adaptive':
             bs, len, dim = input.shape
             input = input.reshape(bs, -1, self.period_len, dim)
@@ -48,13 +45,9 @@ class SAN(nn.Module):
             return input, None
 
     def denormalize(self, input, station_pred):
-        # input:  (B, O, N)
-        # station_pred: outputs of normalize 
         if self.station_type == 'adaptive':
             bs, len, dim = input.shape
             input = input.reshape(bs, -1, self.period_len, dim)
-            # mean = station_pred[:, :, :self.channels].unsqueeze(2)
-            # std = station_pred[:, :, self.channels:].unsqueeze(2)
             mean = station_pred[:, :, :self.channels].unsqueeze(2)
             std = station_pred[:, :, self.channels:].unsqueeze(2)
             output = input * (std + self.epsilon) + mean
@@ -93,3 +86,4 @@ class MLP(nn.Module):
         x = self.output(self.activation(x))
         x = self.final_activation(x)
         return x.permute(0, 2, 1)
+    

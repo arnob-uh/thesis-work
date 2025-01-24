@@ -45,7 +45,6 @@ from torchmetrics.utilities.plot import _AX_TYPE, _PLOT_OUT_TYPE
 if not _MATPLOTLIB_AVAILABLE:
     __doctest_skip__ = ["MeanAbsolutePercentageError.plot"]
 
-
 class MeanAbsolutePercentageError(Metric):
     is_differentiable: bool = True
     higher_is_better: bool = False
@@ -76,10 +75,9 @@ class MeanAbsolutePercentageError(Metric):
         return _mean_absolute_percentage_error_compute(self.sum_abs_per_error, self.total)
 
     def plot(
-        self, val: Optional[Union[Tensor, Sequence[Tensor]]] = None, ax: Optional[_AX_TYPE] = None
-    ) -> _PLOT_OUT_TYPE:
+        self, val: Optional[Union[Tensor, Sequence[Tensor]]] = None, ax: Optional[_AX_TYPE] = None # type: ignore
+    ) -> _PLOT_OUT_TYPE: # type: ignore
         return self._plot(val, ax)
-
 
 def _mean_absolute_percentage_error_update(
     preds: Tensor,
@@ -97,10 +95,8 @@ def _mean_absolute_percentage_error_update(
 
     return sum_abs_per_error, num_obs
 
-
 def _mean_absolute_percentage_error_compute(sum_abs_per_error: Tensor, num_obs: Union[int, Tensor]) -> Tensor:
     return sum_abs_per_error / num_obs
-
 
 def mean_absolute_percentage_error(preds: Tensor, target: Tensor) -> Tensor:
     sum_abs_per_error, num_obs = _mean_absolute_percentage_error_update(preds, target)

@@ -8,55 +8,20 @@ import torch
 
 StoreType = TypeVar(
     "StoreType", bound=Union[pd.DataFrame, np.ndarray, torch.Tensor]
-)  # Type variable for input and output data
-
+)
 
 class Scaler(Generic[StoreType]):
     def fit(self, data: StoreType) -> None:
-        """
-        Fit the Scaler  to the input dataset.
-
-        Args:
-            data:
-                The input dataset to fit the Scaler  to.
-        Returns:
-            None.
-        """
         raise NotImplementedError()
 
     def transform(self, data: StoreType) -> StoreType:
-        """
-        Transform the input dataset using the Scaler .
-
-        Args:
-            data:
-                The input dataset to transform using the Scaler .
-        Returns:
-            The transformed dataset of the same type as the input data.
-        """
         raise NotImplementedError()
 
     def inverse_transform(self, data: StoreType) -> StoreType:
-        """
-        Perform an inverse transform on the input dataset using the Scaler .
-
-        Args:
-            data:
-                The input dataset to perform an inverse transform on.
-        Returns:
-            The inverse transformed dataset of the same type as the input data.
-        """
         raise NotImplementedError()
 
 
 class MaxAbsScaler(Scaler[StoreType]):
-    """
-    shape of data :  (N , n)
-    - N : sample num
-    - n : node num
-    Transforms each channel to the range [0, 1].
-    """
-
     def __init__(self) -> None:
         self.scale = None
 
@@ -69,7 +34,6 @@ class MaxAbsScaler(Scaler[StoreType]):
             raise ValueError(f"not supported type : {type(data)}")
 
     def transform(self, data) -> StoreType:
-        # (b , n)  or (n)
         return data / self.scale
 
     def inverse_transform(self, data: StoreType) -> StoreType:
@@ -80,31 +44,10 @@ class MaxAbsScaler(Scaler[StoreType]):
         else:
             raise ValueError(f"not supported type : {type(data)}")
 
-    # def __call__(self, tensor:Tensor):
-    #     for ch in tensor:
-    #         scale = 1.0 / (ch.max(dim=0)[0] - ch.min(dim=0)[0])
-    #         ch.mul_(scale).sub_(ch.min(dim=0)[0])
-    #     return tensor
-
-
 class MinMaxScaler(Scaler):
-    """
-    shape of data :  (N , n)
-    - N : sample num
-    - n : node num
-    Transforms each channel to the range [0, 1].
-    """
-
     pass
 
 class StandarScaler(Scaler):
-    """
-    shape of data :  (N , n)
-    - N : sample num
-    - n : node num
-    Transforms each channel to the range [0, 1].
-    """
-
     def __init__(self, device="cpu") -> None:
         self.mean = None
         self.std = None
@@ -120,8 +63,6 @@ class StandarScaler(Scaler):
             self.std = data.std(axis=0)
         else:
             raise ValueError(f"not supported type : {type(data)}")
-        
-        # print("Scaler:", self.mean, self.std)
 
     def transform(self, data):
         return (data - self.mean) / self.std
@@ -136,16 +77,7 @@ class StandarScaler(Scaler):
         else:
             raise ValueError(f"not supported type : {type(data)}")
 
-
-
 class NoScaler(Scaler):
-    """
-    shape of data :  (N , n)
-    - N : sample num
-    - n : node num
-    Transforms each channel to the range [0, 1].
-    """
-
     def __init__(self, device="cpu") -> None:
         self.device = device
 
