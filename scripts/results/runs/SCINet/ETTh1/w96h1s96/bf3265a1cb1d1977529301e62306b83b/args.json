@@ -21,7 +21,7 @@
     "device": "cuda:0",
     "num_worker": 8,
     "save_dir": "./results",
-    "experiment_label": "1737653191",
+    "experiment_label": "1738261249",
     "hid_size": 1,
     "num_stacks": 1,
     "num_levels": 3,

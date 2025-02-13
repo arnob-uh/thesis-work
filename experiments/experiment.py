@@ -170,7 +170,9 @@ class NormExperiment(Settings):
         elif self.norm_type == 'SAN':
             self.n_model: torch.nn.Module = Ty(self.windows, self.pred_len, 12, self.dataset.num_features,
                                                **self.norm_config)
-        elif self.norm_type in ['DAIN', 'CN']:
+        elif self.norm_type in ['DAIN']:
+            self.n_model: torch.nn.Module = Ty(self.dataset.num_features)
+        elif self.norm_type in ['ZScore']:
             self.n_model: torch.nn.Module = Ty()
         else:
             self.n_model: torch.nn.Module = Ty(self.windows, self.pred_len, self.dataset.num_features,
